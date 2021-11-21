@@ -14,8 +14,6 @@ public interface Constants {
 	
 	static final String SALESFORCE_API_VERSION = "38";
 	 
-	
-	
     /*'grant_type': 'password',
     'client_id' : sf_conf["client_id"],
     'client_secret' : sf_conf["client_secret"],

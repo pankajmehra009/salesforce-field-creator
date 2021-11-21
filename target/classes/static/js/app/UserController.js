@@ -23,6 +23,8 @@ module.controller("UserController", [ "$scope", "UserService",
 			
 			$scope.ftype = "Text";
 			$scope.flen = "";
+			$scope.flen1 = "";
+			$scope.flen2 = "0";
 			$scope.ftypeOptions = {
 				"Text" : "Text",
 				"Number" : "Number",
@@ -138,6 +140,19 @@ module.controller("UserController", [ "$scope", "UserService",
 				});
 			}
 			
+			$scope.toggleLenFields = function(){
+				console.log($scope.flen);
+				if($scope.ftype == "Number") {
+					$("#flen").hide();
+					$("#flen1").show();
+					$("#flen2").show();
+				} else {
+					$("#flen").show();
+					$("#flen1").hide();
+					$("#flen2").hide();
+				}	
+			}
+			
 			$scope.createField = function() {
 				
 				$("#creatingFields").show();
@@ -153,10 +168,21 @@ module.controller("UserController", [ "$scope", "UserService",
 				if($scope.ftype == "" ) {
 					errorMsg += "*Please Select Field Type. \n";
 				}
-				
-				if($scope.flen == "" || isNaN($scope.flen)) {
-					errorMsg += "*Please Select valid Field Length. \n";
+				if($scope.ftype == "Text") {
+					if($scope.flen == "" || isNaN($scope.flen)) {
+						errorMsg += "*Please Select valid Field Length. \n";
+					}
+				} else if($scope.ftype == "Number") {
+					if($scope.flen1 == "" || isNaN($scope.flen2)) {
+						errorMsg += "*Please Select valid Field Length. \n";
+					}
+					
+					else if((Number($scope.flen1) + Number($scope.flen2)) > 18) {
+						errorMsg += "*The sum of the length and decimal places must be an integer less than or equal to 18 \n";
+					}
 				}
+				
+				
 				
 				if(errorMsg != "") {
 					$("#creatingFields").hide();
@@ -168,11 +194,7 @@ module.controller("UserController", [ "$scope", "UserService",
 				console.log($scope.seprator);
 				console.log($scope.fields.split($scope.seprator));
 				const uniqueValues = new Set($scope.fields.split($scope.seprator));
-				
-				for(var e in uniqueValues) {
-					
-				}
-				
+
 				
 				Promise.all(Array.from(uniqueValues).map(function(value) {
 				    console.log(2,value);
@@ -220,8 +242,21 @@ module.controller("UserController", [ "$scope", "UserService",
 				Metadata["required"] = false;
 				Metadata["externalId"] = false;
 				Metadata["type"] = $scope.ftype;
-				Metadata["length"] = $scope.flen;
+				
+				
+				if($scope.ftype == "Number") {
+					Metadata["precision"] = $scope.flen1;
+	    			Metadata["scale"] = $scope.flen2;
+				} else if ($scope.ftype == "Text") {
+					Metadata["length"] = $scope.flen;
+				}	
+				
+				if($scope.ftype == "Checkbox") {
+					Metadata["defaultValue"] = false; 
+				}
+							
 				fieldObject["Metadata"] =  Metadata;
+				console.log(Metadata);
 				var jsonField = JSON.stringify(fieldObject);
 				//$scope.fieldDto.domain = $scope.session.instance_url;
 				//$scope.fieldDto.session = $scope.session.access_token;

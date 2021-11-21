@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,6 +11,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +33,27 @@ import com.example.demo.utils.Constants;
 public class HomeController {
 	@RequestMapping("/home")
 	public String home() {
+
+		try {
+			FileReader reader=new FileReader("src/main/resources/application.properties");
+			Properties p = new Properties(); 
+			p.load(reader);  
+			Set set=p.entrySet();  
+			Iterator itr=set.iterator();  
+			while(itr.hasNext()){  
+			Map.Entry entry=(Map.Entry)itr.next();  
+				System.out.println(entry.getKey()+" = "+entry.getValue());  
+			}  
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		
+		
 		return "/views/index.html"; 
 	}
 	
