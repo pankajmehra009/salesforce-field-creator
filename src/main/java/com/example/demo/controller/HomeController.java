@@ -33,27 +33,6 @@ import com.example.demo.utils.Constants;
 public class HomeController {
 	@RequestMapping("/home")
 	public String home() {
-
-		try {
-			FileReader reader=new FileReader("src/main/resources/application.properties");
-			Properties p = new Properties(); 
-			p.load(reader);  
-			Set set=p.entrySet();  
-			Iterator itr=set.iterator();  
-			while(itr.hasNext()){  
-			Map.Entry entry=(Map.Entry)itr.next();  
-				System.out.println(entry.getKey()+" = "+entry.getValue());  
-			}  
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		
-		
 		return "/views/index.html"; 
 	}
 	
