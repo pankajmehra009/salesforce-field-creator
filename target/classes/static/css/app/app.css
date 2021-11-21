@@ -1,0 +1,54 @@
+body{
+    background-color: #efefef;
+}
+span.spacing{
+    margin-right: 10px;
+}
+input.custom-width{
+    width: 200px;
+}
+input.spacing{
+    margin-right: 5px;
+}
+body {
+    background-color: white !important;
+} 	
+.mainsection {		
+    text-align: CENTER;
+    padding: 40px;
+    border-radius: 5px;
+    border: thin solid #000;
+}
+.line {
+	margin-bottom: 20px;
+	height: 5px;
+    margin: 0 auto;
+    background: #3498db;
+   	width: 300px;
+}
+select {
+	width: 300px;
+    height: 38px;
+    padding-left: 20px;
+   }
+svg {
+    width: 15px;
+   }
+button {
+   	height: 38px;
+   	BACKGROUND: #3498db;
+   	color: white !important; 
+   }
+textarea {
+	width: 448px;
+  		height: 102px;
+   }
+.loader {
+       background: url(../js/lib/loader.gif);
+       background-repeat: no-repeat;
+       background-position: right;
+   }
+.container {
+   max-width: 550px!important;
+   }
+   
