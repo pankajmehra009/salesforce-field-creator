@@ -92,6 +92,7 @@ module.controller("UserController", [ "$scope", "UserService",
 				console.log("no callback");
 			});
 			
+			/****
 			UserService.getUserById(1).then(function(value) {
 				console.log(value.data);
 			}, function(reason) {
@@ -99,6 +100,7 @@ module.controller("UserController", [ "$scope", "UserService",
 			}, function(value) {
 				console.log("no callback");
 			});
+			*****/
 			
 			$scope.clearSession = function() {
 				UserService.deletesession().then(function(value) {

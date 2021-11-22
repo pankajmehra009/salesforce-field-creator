@@ -48,22 +48,23 @@ public class BootDemoApplication {
 				
 				Map.Entry entry=(Map.Entry)itr.next();  
 				System.out.println(entry.getKey()+" = "+entry.getValue());  
-				
-				if(entry.getKey() == "SALESFORCE_CONSUMER_KEY") {
+				String keyValue = (String) entry.getKey();
+				System.out.println(keyValue.equals("SALESFORCE_CONSUMER_KEY"));
+				if(keyValue.equals("SALESFORCE_CONSUMER_KEY")) {
 					Constants.SALESFORCE_CONSUMER_KEY = (String) entry.getValue();
 				}
-				else if(entry.getKey() == "SALESFORCE_CONSUMER_SECRET") {
+				else if(keyValue.equals("SALESFORCE_CONSUMER_SECRET")) {
 					Constants.SALESFORCE_CONSUMER_SECRET = (String) entry.getValue();
 				}
-				else if(entry.getKey() == "SALESFORCE_REDIRECT_URI") {
+				else if(keyValue.equals("SALESFORCE_REDIRECT_URI")) {
 					Constants.SALESFORCE_REDIRECT_URI = (String) entry.getValue();
 				}
-				else if(entry.getKey() == "SALESFORCE_PROD_URI") {
+				else if(keyValue.equals("SALESFORCE_PROD_URI")) {
 					Constants.SALESFORCE_PROD_URI = (String) entry.getValue();
 				}
-				else if(entry.getKey() == "SALESFORCE_SNDBX_URI") {
+				else if(keyValue.equals("SALESFORCE_SNDBX_URI")) {
 					Constants.SALESFORCE_SNDBX_URI = (String) entry.getValue();
-				}
+				}  
 			}  
 			
 		} catch (FileNotFoundException e) {
