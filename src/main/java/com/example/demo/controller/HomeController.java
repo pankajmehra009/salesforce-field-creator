@@ -19,6 +19,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -88,7 +89,7 @@ public class HomeController {
 		return "/home";
 	}
 	
-	@RequestMapping("/oauth2/sflogin") 
+	@RequestMapping(value = "/oauth2/sflogin", method = RequestMethod.GET) 
 	public ModelAndView home(@RequestParam String env,@RequestParam String customdomain) {
 		userRepository.deleteAll();
 		User user= new User(env, null);

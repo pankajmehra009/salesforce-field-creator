@@ -14,46 +14,46 @@ module.controller("UserController", [ "$scope", "UserService",
 				session : null,
 				field : null
 			};
-			$scope.skills = [];
-			$scope.hasSession = false;
-			$scope.fields = "";
-			
-			$scope.selectedSobject = "";
-			$scope.sobjectdata = {};
-			
-			$scope.ftype = "Text";
-			$scope.flen = "";
-			$scope.flen1 = "";
-			$scope.flen2 = "0";
 			$scope.ftypeOptions = {
 				"Text" : "Text",
 				"Number" : "Number",
 				"Date" : "Date",
 				"Email" : "Email",
-				"Checkbox" : "Checkbox"
+				"Checkbox" : "Checkbox",
+				"Currency" : "Currency"
 			};
-			
-			$scope.seprator = ",";
 			$scope.sepratorList = {
 				"," : "Comma",
 				";" : "Colan",
 				"\n" : "Newline"
 			};
-			$scope.description = "";
-			$scope.helptext = "";
-			
-			$scope.domain = "";
-			$scope.mydomain = "";
 			$scope.domains = {
 				"prod" : "Production",
 				"sandbox" : "Sandbox",
 				"custom" : "Custom"
 			};
-			
+			// For test only
 			$scope.jsonData = [
 			    {id: "1", type: "bus", make: "VW", color: "white"},
 			    {id: "2", type: "taxi", make: "BMW", color: "blue"}
 			  ];
+			  
+			$scope.description = "";
+			$scope.helptext = "";
+			$scope.domain = "";
+			$scope.mydomain = "";
+			$scope.seprator = ",";
+			$scope.ftype = "Text";
+			$scope.flen = "";
+			$scope.flen1 = "";
+			$scope.flen2 = "0";
+			$scope.skills = [];
+			$scope.hasSession = false;
+			$scope.fields = "";
+			$scope.selectedSobject = "";
+			$scope.sobjectdata = {};
+			
+			
 			
 			UserService.getAccessCode().then(function(value) {
 				$scope.accessCode = value.data;
@@ -107,6 +107,7 @@ module.controller("UserController", [ "$scope", "UserService",
 					$scope.session = {};
 					$scope.hasSession = false;
 					sessionscreen(false);
+					$("#fTable").empty();
 					//row2
 				}, function(reason) {
 					console.log("error occured");
@@ -144,7 +145,7 @@ module.controller("UserController", [ "$scope", "UserService",
 			
 			$scope.toggleLenFields = function(){
 				console.log($scope.flen);
-				if($scope.ftype == "Number") {
+				if($scope.ftype == "Number" || $scope.ftype == "Currency") {
 					$("#flen").hide();
 					$("#flen1").show();
 					$("#flen2").show();
@@ -153,6 +154,27 @@ module.controller("UserController", [ "$scope", "UserService",
 					$("#flen1").hide();
 					$("#flen2").hide();
 				}	
+			}
+			$scope.refreshPage = function() {
+				$scope.description = "";
+				$scope.helptext = "";
+				$scope.domain = "";
+				$scope.mydomain = "";
+				$scope.seprator = ",";
+				$scope.ftype = "Text";
+				$scope.flen = "";
+				$scope.flen1 = "";
+				$scope.flen2 = "0";
+				$scope.skills = [];
+				$scope.hasSession = false;
+				$scope.fields = "";
+				$scope.selectedSobject = "";
+				$scope.sobjectdata = {};
+				$("#flen").hide();
+				$("#flen1").show();
+				$("#flen2").show();
+				$("#fTable").empty();
+				sessionscreen(true);
 			}
 			
 			$scope.createField = function() {
@@ -174,7 +196,7 @@ module.controller("UserController", [ "$scope", "UserService",
 					if($scope.flen == "" || isNaN($scope.flen)) {
 						errorMsg += "*Please Select valid Field Length. \n";
 					}
-				} else if($scope.ftype == "Number") {
+				} else if($scope.ftype == "Number" || $scope.ftype ==  "Currency") {
 					if($scope.flen1 == "" || isNaN($scope.flen2)) {
 						errorMsg += "*Please Select valid Field Length. \n";
 					}
@@ -246,7 +268,7 @@ module.controller("UserController", [ "$scope", "UserService",
 				Metadata["type"] = $scope.ftype;
 				
 				
-				if($scope.ftype == "Number") {
+				if($scope.ftype == "Number" || $scope.ftype == "Currency") {
 					Metadata["precision"] = $scope.flen1;
 	    			Metadata["scale"] = $scope.flen2;
 				} else if ($scope.ftype == "Text") {

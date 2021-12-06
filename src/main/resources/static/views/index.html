@@ -77,26 +77,46 @@
     	<textarea rows="10" type="text" ng-model="fields"  class="input-sm custom-width spacing"
                                      placeholder="Use Seprator to separate fields">
        	</textarea><br>
+       	<div style=" width: 100%; margin: 0 auto;">
+       	<div style="width: 30%;float: left;margin-right: 10px;margin-left: 10px;">
+       	<label style="float: left;">Type</label><br>
        	<select style="width: 147px;" ng-model="ftype" id="ftype" ng-change="toggleLenFields()" placeholder="Select Field Type" 
        			ng-options="key as value for (key , value) in ftypeOptions"></select>
+       			
+       	</div>
+       	<div style="width: 30%;float: left;margin-right: 10px;">
+       	<label style="float: left;">Separator</label><br>
        	<select style="width: 147px;margin-bottom:5px;" ng-model="seprator" id="seprator"  placeholder="Select Field Seprator"  
        			ng-options="key as value for (key , value) in sepratorList"></select>
+       	</div>
+       	<div style="width: 30%;float: left;">
+       	<label style="float: left;">Length</label><br>
        	<input type="text" id="flen" ng-model="flen"  class="input-sm custom-width spacing" style="width: 140px;height: 37px;"
                                      placeholder="Enter Field Length"></input>
-                                     
-        <input type="text" id="flen1" ng-model="flen1"  class="input-sm custom-width spacing" style="display:none;width: 70px;height: 37px;"
+        <input type="text" id="flen1" ng-model="flen1"  class="input-sm custom-width spacing" style="display:none;width: 68px;height: 37px;margin-left: -45px;float: left;margin-top: 5px;"
                                      placeholder="Number"></input>
-        <input type="text" id="flen2" ng-model="flen2"  class="input-sm custom-width spacing" style="display:none;width: 70px;height: 37px;"
+        <input type="text" id="flen2" ng-model="flen2"  class="input-sm custom-width spacing" style="display:none;width: 60px;height: 37px;margin-top: 5px;"
                                      placeholder="Decimal"></input>
+        </div>
+        </div>                       
+        
        	<br>
+       	
+       	<div style=" width: 100%; margin: 0 auto;float: left;">
+       	<label style="float: left;margin-left: 10px;">Decription</label><br>
        	<textarea type="text" ng-model="description" class="input-sm custom-width spacing"
                                      placeholder="Enter Description">
        	</textarea>
+       	</div>
+       	<div style=" width: 100%; margin: 0 auto;">
+       	<label style="float: left;margin-left: 10px;">Helptext</label><br>
        	<textarea type="text" ng-model="helptext" class="input-sm custom-width spacing"
                                      placeholder="Enter Helptext">
        	</textarea>
+       	</div>
         <br><br>
-    	<button ng-click="createField()" class="btn btn-sm btn-info">Create Fields</button><br>
+    	<button ng-click="createField()" class="btn btn-sm btn-info">Create Fields</button>
+    	<button ng-click="clearSession()" class="btn btn-sm btn-info">Refresh</button><br>
     	<i id="creatingFields" class="loader" style="color: red;display:none;font-size: 10px">Creating Fields ... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
     </div>
     

@@ -65,7 +65,7 @@ public class BootDemoApplication {
 				else if(keyValue.equals("SALESFORCE_SNDBX_URI")) {
 					Constants.SALESFORCE_SNDBX_URI = (String) entry.getValue();
 				}  
-			}  
+			}
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
