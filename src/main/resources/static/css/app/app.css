@@ -54,4 +54,5 @@ textarea {
 label {
     font-size: 15px!important;
 }
+table td { word-wrap:break-word;}
    

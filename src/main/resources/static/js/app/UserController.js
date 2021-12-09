@@ -20,7 +20,8 @@ module.controller("UserController", [ "$scope", "UserService",
 				"Date" : "Date",
 				"Email" : "Email",
 				"Checkbox" : "Checkbox",
-				"Currency" : "Currency"
+				"Currency" : "Currency",
+				"Picklist" : "Picklist"
 			};
 			$scope.sepratorList = {
 				"," : "Comma",
@@ -50,6 +51,7 @@ module.controller("UserController", [ "$scope", "UserService",
 			$scope.skills = [];
 			$scope.hasSession = false;
 			$scope.fields = "";
+			$scope.picklistValues = "";
 			$scope.selectedSobject = "";
 			$scope.sobjectdata = {};
 			
@@ -148,10 +150,14 @@ module.controller("UserController", [ "$scope", "UserService",
 				if($scope.ftype == "Number" || $scope.ftype == "Currency") {
 					$("#flen").hide();
 					$("#flen1").show();
+					$("#picklist").hide();
 					$("#flen2").show();
+				} else if($scope.ftype == "Picklist") {
+					$("#picklist").show();
 				} else {
 					$("#flen").show();
 					$("#flen1").hide();
+					$("#picklist").hide();
 					$("#flen2").hide();
 				}	
 			}
@@ -195,6 +201,10 @@ module.controller("UserController", [ "$scope", "UserService",
 				if($scope.ftype == "Text") {
 					if($scope.flen == "" || isNaN($scope.flen)) {
 						errorMsg += "*Please Select valid Field Length. \n";
+					}
+				} else if($scope.ftype == "Checkbox") {
+					if($scope.picklistValues == "") {
+						errorMsg += "*Please enter Picklist values. \n";
 					}
 				} else if($scope.ftype == "Number" || $scope.ftype ==  "Currency") {
 					if($scope.flen1 == "" || isNaN($scope.flen2)) {
@@ -278,6 +288,24 @@ module.controller("UserController", [ "$scope", "UserService",
 				if($scope.ftype == "Checkbox") {
 					Metadata["defaultValue"] = false; 
 				}
+				
+				if($scope.ftype == "Picklist") {
+					const uniquePickValues = new Set($scope.picklistValues.split($scope.seprator));
+					console.log(uniquePickValues);
+					// format : 
+					//var pick = '{"valueSetDefinition":{"value":[{"label":"Canada","valueName":"Canada"},{"label":"US","valueName":"US"}]}}';
+					var valueSetDefinition = {};
+					var valueSet = {};
+					var value = [];
+					for(var pick of uniquePickValues) {
+						value.push({"label" : pick , "valueName" : pick});
+					}
+					valueSetDefinition["value"] = value;
+					valueSet["valueSetDefinition"] = valueSetDefinition;
+					Metadata["valueSet"] = valueSet; 
+					console.log(valueSet);
+				}
+				
 							
 				fieldObject["Metadata"] =  Metadata;
 				console.log(Metadata);
@@ -295,7 +323,7 @@ module.controller("UserController", [ "$scope", "UserService",
 					if(Array.isArray(value.data)) {
 						$("#fTable").append("<tr><td>"+value.data.id+"</td><td>"+fname+"</td><td>"+value.data[0].message+"</td><td>"+value.data[0].errorCode+"</td></tr>");
 					} else {
-						$("#fTable").append("<tr><td>"+value.data.id+"</td><td>"+fname+"</td><td>Created</td><td></td></tr>");
+						$("#fTable").append("<tr><td>"+value.data.id+"</td><td>"+fname+"</td><td>Created</td><td>200[OK]</td></tr>");
 					}
 					$("#creatingFields").hide();
 					return value;
