@@ -54,7 +54,7 @@ module.controller("UserController", [ "$scope", "UserService",
 			$scope.picklistValues = "";
 			$scope.selectedSobject = "";
 			$scope.sobjectdata = {};
-			
+			$scope.defaultvalue = "";
 			
 			
 			UserService.getAccessCode().then(function(value) {
@@ -154,12 +154,19 @@ module.controller("UserController", [ "$scope", "UserService",
 					$("#flen2").show();
 				} else if($scope.ftype == "Picklist") {
 					$("#picklist").show();
+					$("#flen").hide();
+					$("#flen1").hide();
+					$("#flen2").hide();
+				} else if($scope.ftype == "Checkbox") {
+					$("#flen").hide();
+					$("#flen1").hide();
+					$("#flen2").hide();
 				} else {
 					$("#flen").show();
 					$("#flen1").hide();
 					$("#picklist").hide();
 					$("#flen2").hide();
-				}	
+				}
 			}
 			$scope.refreshPage = function() {
 				$scope.description = "";
@@ -175,7 +182,8 @@ module.controller("UserController", [ "$scope", "UserService",
 				$scope.hasSession = false;
 				$scope.fields = "";
 				$scope.selectedSobject = "";
-				$scope.sobjectdata = {};
+				//$scope.sobjectdata = {};
+				$scope.defaultvalue = "";
 				$("#flen").hide();
 				$("#flen1").show();
 				$("#flen2").show();
@@ -278,6 +286,7 @@ module.controller("UserController", [ "$scope", "UserService",
 				Metadata["type"] = $scope.ftype;
 				
 				
+				
 				if($scope.ftype == "Number" || $scope.ftype == "Currency") {
 					Metadata["precision"] = $scope.flen1;
 	    			Metadata["scale"] = $scope.flen2;
@@ -287,6 +296,8 @@ module.controller("UserController", [ "$scope", "UserService",
 				
 				if($scope.ftype == "Checkbox") {
 					Metadata["defaultValue"] = false; 
+				} else {
+					Metadata["defaultValue"] = $scope.defaultvalue;
 				}
 				
 				if($scope.ftype == "Picklist") {
