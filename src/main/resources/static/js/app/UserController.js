@@ -151,17 +151,15 @@ module.controller("UserController", [ "$scope", "UserService",
 					$("#flen").hide();
 					$("#flen1").show();
 					$("#picklist").hide();
+					$("#flendiv").show();
 					$("#flen2").show();
 				} else if($scope.ftype == "Picklist") {
 					$("#picklist").show();
-					$("#flen").hide();
-					$("#flen1").hide();
-					$("#flen2").hide();
+					$("#flendiv").hide();
 				} else if($scope.ftype == "Checkbox") {
-					$("#flen").hide();
-					$("#flen1").hide();
-					$("#flen2").hide();
+					$("#flendiv").hide();
 				} else {
+					$("#flendiv").show();
 					$("#flen").show();
 					$("#flen1").hide();
 					$("#picklist").hide();
