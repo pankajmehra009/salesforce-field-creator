@@ -192,6 +192,7 @@ module.controller("UserController", [ "$scope", "UserService",
 			$scope.createField = function() {
 				
 				$("#creatingFields").show();
+				$("#fTable").empty();
 				var errorMsg = "";
 				if($scope.fields == "" ) {
 					errorMsg += "*Please Enter Field names. \n";
