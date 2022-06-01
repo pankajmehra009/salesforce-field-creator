@@ -26,5 +26,8 @@ angular.module('demo.services', []).factory('UserService',
 			service.deletesession = function() {
 				return $http.get(CONSTANTS.deletesession); 
 			}
+			service.createLead = function(leadDto) {
+				return $http.post(CONSTANTS.createLead , leadDto); 
+			}
 			return service;
 		} ]);

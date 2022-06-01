@@ -15,9 +15,16 @@ body {
 } 	
 .mainsection {		
     text-align: CENTER;
-    padding: 40px;
+    overflow-y: auto;
+    height: 100%;
+    padding-top: 30px;
+    
+}
+div.data {
+	width: 450px;
+    margin: auto;
     border-radius: 5px;
-    border: thin solid #000;
+    border: thin solid #db0d0d;
 }
 .line {
 	margin-bottom: 20px;
@@ -34,13 +41,16 @@ select {
 svg {
     width: 15px;
    }
-button {
-   	height: 38px;
-   	BACKGROUND: #3498db;
-   	color: white !important; 
-   }
+
+button.clearsession {
+    background: white;
+    height: 25px;
+    color: black;
+    padding: 0px 7px;
+    margin-top: 5px;
+}
 textarea {
-	width: 448px;
+	width: 385px;
   		height: 102px;
    }
 .loader {
@@ -49,10 +59,56 @@ textarea {
        background-position: right;
    }
 .container {
-   max-width: 550px!important;
-   }
+   width: 100%;
+   padding-right: 0px;
+   padding-left: 0px;
+   height: 100%;
+}
 label {
-    font-size: 15px!important;
+	color: grey;
 }
 table td { word-wrap:break-word;}
-   
+table tr {
+    border-bottom: 0.2px solid #8080804d;
+}
+table th {
+    background: #f4fcfe;
+}
+.float-container {
+    border: 3px solid #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    border: 2px solid #f5f5f5;
+}  
+
+textarea , select, input{
+	border-color: #ddd;
+    border-radius: 3px;
+} 
+
+.pageheader {
+    background: #f4fcfe;
+    border-radius: 5px;
+    margin: 20px;
+    padding-top: 10px;
+}
+div.resultData{
+    width: 450px;
+    padding: 10px;
+    border: thin solid #db0d26ba;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: grid;
+    justify-items: start;
+}
+div.section {
+    width: 385px;
+    margin: 0 auto;
+    display: grid;
+    justify-items: start;
+}

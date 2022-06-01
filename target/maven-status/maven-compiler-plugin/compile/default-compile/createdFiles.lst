@@ -14,6 +14,7 @@ com/example/demo/entity/Code.class
 com/example/demo/converter/SkillConverter.class
 com/example/demo/repository/UserRepository.class
 com/example/demo/entity/Skill.class
+com/example/demo/dto/FieldDTO.class
 com/example/demo/utils/Constants.class
 com/example/demo/controller/CallBackController.class
 com/example/demo/controller/UserController.class

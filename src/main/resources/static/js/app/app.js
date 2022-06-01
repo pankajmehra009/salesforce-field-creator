@@ -9,5 +9,6 @@ demoApp.constant("CONSTANTS", {
 	getAccessCode : "/code/getaccesscode",
 	getsObjects : "/api/sobjects",
 	createField : "/api/sobjects/createfield",
-	deletesession : "/api/deletesession"
+	deletesession : "/api/deletesession",
+	createLead : "/api/createlead"
 });

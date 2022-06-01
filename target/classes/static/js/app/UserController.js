@@ -189,6 +189,10 @@ module.controller("UserController", [ "$scope", "UserService",
 				sessionscreen(true);
 			}
 			
+			$scope.buyMeACoffee = function() {
+				console.log('Method here');
+			}
+			
 			$scope.createField = function() {
 				
 				$("#creatingFields").show();
@@ -243,8 +247,27 @@ module.controller("UserController", [ "$scope", "UserService",
 				    return createField(value);
 				})).then(function(results) {
 				    console.log(1,results);
+				    createLead(uniqueValues.size);
 				});
 
+			}
+			
+			function createLead(count) {
+				
+				var leadDto = {
+					"count" : count,
+					"sessionId" : $scope.session.access_token,
+					"domain" : $scope.session.instance_url,
+					"id" :  $scope.session.id
+ 				};
+				console.log(4,leadDto);
+				UserService.createLead(leadDto).then(function(value) {
+					console.log(5,value);
+				}, function(reason) {
+					console.log(reason);
+				}, function(value) {
+					console.log(value);
+				});
 			}
 			
 			$scope.loginSF = function() {
@@ -332,7 +355,7 @@ module.controller("UserController", [ "$scope", "UserService",
 				UserService.createField(fieldDto).then(function(value) {
 					console.log(3,value);
 					if(Array.isArray(value.data)) {
-						$("#fTable").append("<tr><td>"+value.data.id+"</td><td>"+fname+"</td><td>"+value.data[0].message+"</td><td>"+value.data[0].errorCode+"</td></tr>");
+						$("#fTable").append("<tr><td>"+value.data.id+"</td><td>"+fname+"</td><td>"+value.data[0].message+"</td><td>"+value.data[0].errorCode.replace(/_/g, ' ')+"</td></tr>");
 					} else {
 						$("#fTable").append("<tr><td>"+value.data.id+"</td><td>"+fname+"</td><td>Created</td><td>200[OK]</td></tr>");
 					}

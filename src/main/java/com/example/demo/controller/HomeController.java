@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Code;
 import com.example.demo.entity.Skill;
-import com.example.demo.entity.User;
+import com.example.demo.entity.Users;
 import com.example.demo.repository.CodeRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.utils.Constants;
@@ -45,7 +45,7 @@ public class HomeController {
 	@RequestMapping("/oauth2/callback")
 	public String home(@RequestParam String code) {
 		System.out.println("code : "+code);
-		User user = userRepository.findAll().get(0);
+		Users user = userRepository.findAll().get(0);
 		System.out.println("user : "+user);
 		String env = user.getUserName();
 		String urlSFFromDB = (env.equals("prod")) ? Constants.SALESFORCE_PROD_URI : 
@@ -92,7 +92,7 @@ public class HomeController {
 	@RequestMapping(value = "/oauth2/sflogin", method = RequestMethod.GET) 
 	public ModelAndView home(@RequestParam String env,@RequestParam String customdomain) {
 		userRepository.deleteAll();
-		User user= new User(env, null);
+		Users user= new Users(env, null);
 		user.setSkills(Arrays.asList(new Skill(customdomain)));
 		user= userRepository.save(user);
 		System.out.println("login started : "+env);
