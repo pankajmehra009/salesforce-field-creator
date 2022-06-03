@@ -8,10 +8,11 @@
 
 	<div class="float-container">
 	
-	  <div class="float-child">
-	    <div class="green">
-	    	<img src="../css/app/image.png" style="width: 100%;"> 
+	  <div class="float-child" >
+	    <div class="workscreenimage" style="display: none;background: url(../css/app/image4.png) no-repeat 50% 0%;background-color: white;width: 100%;height: 100%;">
 	    </div>
+	    <div class="loginscreenimage" style="background: url(../css/app/image1.png) no-repeat 50% 0%;background-color: white;width: 100%;height: 100%;">
+	    </div>    
 	  </div>
 	  
 	  <div class="float-child">
@@ -51,7 +52,7 @@
 							<!-- a href="https://login.salesforce.com/services/oauth2/authorize?client_id=3MVG9Y6d_Btp4xp7xxXFOrwzsIK5ZcRR4GPpYLoYFeyYOsfV6wLEcre7lJXmXmOfze__RT2C6xoa.7c2zjg0L&redirect_uri=https://localhost:8080/oauth2/callback&response_type=code" >connect salesforce</a -->
 							<!--  a ng-hide="{{hasSession}}" href="../oauth2/sflogin?env=prod&customdomain=1" >sflogin</a -->
 						</p>
-						<button class="btn button is-info" ng-click="loginSF()" style="width: 300px;border-color: #f5f5f5;border-radius: 4px;">Log In
+						<button class="btn button is-info loginbutton" ng-click="loginSF()" >Log In
 						</button>
 					</div>
 		
@@ -158,7 +159,7 @@
 						<br>
 						<br>
 						<button ng-click="refreshPage()" class="btn btn-sm btn-info" style="width: 190px;">Refresh</button>
-						<button ng-click="createField()" class="btn btn-sm btn-info" style="width: 190px;">Create Fields</button><hr />
+						<button ng-click="createField()" class="btn btn-sm btn-info" style="width: 190px;">Create Fields</button><hr style="width: 90%;"/>
 						<button ng-click="buyMeACoffee()" class="btn btn-sm btn-light" style="width: 385px;margin-top: 5px;">Buy Me a Coffee</button>
 						<br> <i id="creatingFields" class="loader"
 							style="color: red; display: none; font-size: 10px">Creating

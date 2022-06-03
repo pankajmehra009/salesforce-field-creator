@@ -190,7 +190,7 @@ module.controller("UserController", [ "$scope", "UserService",
 			}
 			
 			$scope.buyMeACoffee = function() {
-				console.log('Method here');
+				window.open("https://www.buymeacoffee.com/happychef", '_blank').focus();
 			}
 			
 			$scope.createField = function() {
@@ -380,6 +380,7 @@ module.controller("UserController", [ "$scope", "UserService",
 		
 $( document ).ready(function() {
 	console.log('ready!');
+	$("div.row1:visible").parents('div.data').addClass("login");
     $("#orgtype").change(function() {
     	console.log('onchange!' , $("#orgtype :selected").text());
     	if($("#orgtype :selected").text() == 'Custom' ) {
@@ -403,12 +404,18 @@ function sessionscreen(isSession){
 		$(".row1").hide();
 		$(".row2").hide();
 		$(".row3").hide();
+		$(".loginscreenimage").hide();
+		$(".workscreenimage").show();
+		$("div.row4:visible").parents('div.data').removeClass("login");
 	} else {
 		$(".row4").hide();
 		$(".row5").hide();
 		$(".row1").show();
 		$(".row2").hide();
 		$(".row3").show();
+		$("div.row1:visible").parents('div.data').addClass("login");
+		$(".loginscreenimage").show();
+		$(".workscreenimage").hide();
 	}
 }	
 		

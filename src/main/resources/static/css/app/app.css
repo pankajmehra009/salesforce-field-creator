@@ -112,3 +112,20 @@ div.section {
     display: grid;
     justify-items: start;
 }
+.float-child > .loginscreenimage{
+	height: 100vh !important;
+}
+.login {
+	transform: translateY(25%);
+	height: auto !important;
+	padding-top: 0px !important;
+}
+.loginbutton {
+    width: 300px;
+    border-color: #3a9cd8;
+    border-radius: 4px;
+    background: #3a9cd8;
+    color: white;
+    height: 40px;
+    font-size: smaller;
+}
