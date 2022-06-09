@@ -24,7 +24,7 @@ div.data {
 	width: 450px;
     margin: auto;
     border-radius: 5px;
-    border: thin solid #db0d0d;
+    border: thin solid #f57777a3;
 }
 .line {
 	margin-bottom: 20px;
@@ -100,7 +100,7 @@ textarea , select, input{
 div.resultData{
     width: 450px;
     padding: 10px;
-    border: thin solid #db0d26ba;
+    border: thin solid #f57777a3;
     border-radius: 5px;
     margin: 0 auto;
     display: grid;
@@ -128,4 +128,18 @@ div.section {
     color: white;
     height: 40px;
     font-size: smaller;
+}
+.pagebutton{
+	font-size: large;
+    height: 40px;
+    background: white;
+    color: #3da6ec;
+    border-color: #3da6ec;
+ }
+.submitbutton{
+    width: 190px;
+    height: 40px;
+    background: #3da6ec;
+    font-size: large;
+   	border-color: #3da6ec;
 }
