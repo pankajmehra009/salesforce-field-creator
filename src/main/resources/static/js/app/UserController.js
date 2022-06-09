@@ -400,7 +400,7 @@ function createFieldsJS() {
 function sessionscreen(isSession){
 	if(isSession) {
 		$(".row4").show();
-		$(".row6").show();
+		//$(".row6").show();
 		$(".row5").show();
 		$(".row1").hide();
 		$(".row2").hide();
