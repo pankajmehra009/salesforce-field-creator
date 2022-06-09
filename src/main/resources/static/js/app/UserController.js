@@ -400,6 +400,7 @@ function createFieldsJS() {
 function sessionscreen(isSession){
 	if(isSession) {
 		$(".row4").show();
+		$(".row6").show();
 		$(".row5").show();
 		$(".row1").hide();
 		$(".row2").hide();
@@ -409,6 +410,7 @@ function sessionscreen(isSession){
 		$("div.row4:visible").parents('div.data').removeClass("login");
 	} else {
 		$(".row4").hide();
+		$(".row6").hide();
 		$(".row5").hide();
 		$(".row1").show();
 		$(".row2").hide();
