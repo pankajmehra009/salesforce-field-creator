@@ -165,8 +165,8 @@ public class CallBackController {
 					+ "&first_name="+encodeValue(firstname)
 					+ "&last_name="+encodeValue(lastname)
 					+ "&Fields_created__c="+encodeValue(lastname)
-					+ "&Company="+encodeValue("Web App")
-					+ "&LeadSource="+encodeValue("Web App")
+					+ "&company="+encodeValue("Web App")
+					+ "&lead_source="+encodeValue("Web App")
 					+ "&email="+encodeValue(email)
 					+ "&description="+encodeValue("Fields Created : ")+ fDto.count
 					+ "&submit=Submit";
