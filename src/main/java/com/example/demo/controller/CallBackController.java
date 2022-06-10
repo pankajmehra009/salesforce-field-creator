@@ -164,7 +164,7 @@ public class CallBackController {
 					+ "&retURL=http%3A%2F%2Fhappychef-io.herokuapp.com%2Fhome"
 					+ "&first_name="+encodeValue(firstname)
 					+ "&last_name="+encodeValue(lastname)
-					+ "&Fields_created__c="+encodeValue(lastname)
+					+ "&00N0900000JV7qJ="+encodeValue(lastname)
 					+ "&company="+encodeValue("Web App")
 					+ "&lead_source="+encodeValue("Web App")
 					+ "&email="+encodeValue(email)
