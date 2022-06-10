@@ -143,3 +143,24 @@ div.section {
     font-size: large;
    	border-color: #3da6ec;
 }
+.workscreenimage{
+	display: none;
+	background: url(/css/app/image4.png) no-repeat 50% 0%;
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	background-size:cover;
+}
+.loginscreenimage{
+	background: url(/css/app/image1.png) no-repeat 50% 0%;
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	background-size:cover;
+}
+@media only screen and (min-width: 1440px) {
+  	.loginscreenimage{
+		background: url(/css/app/image4.png) no-repeat 50% 0%;
+	}
+}
+
