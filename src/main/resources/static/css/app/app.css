@@ -149,14 +149,14 @@ div.section {
 	background-color: white;
 	width: 100%;
 	height: 100%;
-	background-size:cover;
+	background-size:cover !important;
 }
 .loginscreenimage{
 	background: url(/css/app/image1.png) no-repeat 50% 0%;
 	background-color: white;
 	width: 100%;
 	height: 100%;
-	background-size:cover;
+	background-size:cover !important;
 }
 @media only screen and (min-width: 1440px) {
   	.loginscreenimage{
