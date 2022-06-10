@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,9 @@ import com.example.demo.entity.Code;
 import com.example.demo.repository.CodeRepository;
 import com.example.demo.service.CodeService;
 import com.example.demo.utils.Constants;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
@@ -145,31 +148,12 @@ public class CallBackController {
 	@RequestMapping(value="/api/createlead", method= RequestMethod.POST)
 	public String getCreateLead(@RequestBody LeadDTO fDto) throws IOException {
 		System.out.print("><>>>>> "+fDto.id);
-		String userInfo = getUserDetails(fDto);
-		ObjectMapper mapper = new ObjectMapper();
-		final ObjectNode node = new ObjectMapper().readValue(userInfo, ObjectNode.class);
-		String fullname = node.get("display_name").asText();
-		String firstname = fullname.split(" ")[0];
-		String lastname = fullname.split(" ")[1];
-		String email = node.get("email").asText();
-		System.out.print(email);
-		System.out.print(fullname);
-		System.out.print(firstname);
+		String lead = getUserDetails(fDto);
 		URL url;
 		OutputStreamWriter osw = null;
 		OutputStream os = null;
 		try {
 			String urlSF = "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
-			String lead = "oid=00D09000009DF9a"
-					+ "&retURL=http%3A%2F%2Fhappychef-io.herokuapp.com%2Fhome"
-					+ "&first_name="+encodeValue(firstname)
-					+ "&last_name="+encodeValue(lastname)
-					+ "&00N0900000JV7qJ="+encodeValue(lastname)
-					+ "&company="+encodeValue("Web App")
-					+ "&lead_source="+encodeValue("Web App")
-					+ "&email="+encodeValue(email)
-					+ "&description="+encodeValue("Fields Created : ")+ fDto.count
-					+ "&submit=Submit";
 	        url = new URL(urlSF);
 	        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 	        httpCon.setDoOutput(true);
@@ -203,7 +187,7 @@ public class CallBackController {
 	        result = buf.toString();
 	        System.out.println(result);
 	        
-	        return result;
+	        return "Success";
 	       
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -223,23 +207,39 @@ public class CallBackController {
 	}
 	
 	public String getUserDetails(LeadDTO fDto) throws IOException {
-		System.out.print(fDto.id);
+		System.out.println(fDto.id);
 		URL url;
 		OutputStreamWriter osw = null;
 		OutputStream os = null;
 		try {
-			String urlSF = fDto.id;
+			String userId = fDto.id.substring(fDto.id.lastIndexOf("/") + 1,fDto.id.length());
+			System.out.println(userId);
+			String urlSF = "/services/data/v46.0/sobjects/User/" + userId;
+			String urlCompany = "/services/data/v51.0/query/?q=SELECT+name+from+Organization+LIMIT+1";
 			
-	        url = new URL(urlSF);
+			String composite ="{\n"
+					+ "\"compositeRequest\" : [{\n"
+					+ "  \"method\" : \"GET\",\n"
+					+ "  \"referenceId\" : \"refId\",\n"
+					+ "  \"url\" : \""+ urlSF +"\"\n"
+					+ "  },{\n"
+					+ "  \"method\" : \"GET\",\n"
+					+ "  \"referenceId\" : \"refCompany\",\n"
+					+ "  \"url\" : \""+urlCompany+"\"\n"
+					+ "  }]\n"
+					+ "}";
+			System.out.println("><> "+composite);
+	        url = new URL(fDto.domain + "/services/data/v51.0/composite");
 	        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 	        httpCon.setDoOutput(true);
 	        httpCon.setDoInput(true);
 	        httpCon.setRequestProperty("Content-Type", "application/json");
-	        httpCon.setRequestMethod("GET");
+	        httpCon.setRequestMethod("POST");
 	        httpCon.setRequestProperty ("Authorization", "Bearer "+fDto.sessionId);
 	        httpCon.setAllowUserInteraction(true); 
 	        os = httpCon.getOutputStream();
-	        osw = new OutputStreamWriter(os, "UTF-8");    
+	        osw = new OutputStreamWriter(os, "UTF-8");   
+	        osw.write(composite);
 	        osw.flush();
 	        osw.close();
 	        os.close();  //don't forget to close the OutputStream 
@@ -260,8 +260,53 @@ public class CallBackController {
 	        }
 	        result = buf.toString();
 	        System.out.println("><> "+result);
+	        result = buf.toString();
 	        
-	        return result;
+	        System.out.println("><> "+result);
+	        ObjectMapper mapper = new ObjectMapper();
+			final ObjectNode node = new ObjectMapper().readValue(result, ObjectNode.class);
+			ArrayNode arrayNode = (ArrayNode) node.get("compositeResponse");
+			System.out.println("arrayNode.size() ><> "+arrayNode.size());
+			Iterator<JsonNode> itr = arrayNode.elements();
+			String firstname = "",lastname = "",email = "",companyname = "";
+			while(itr.hasNext()) {
+				JsonNode node2 = itr.next();
+				JsonNode body = node2.get("body");
+				System.out.println("node2.get(\"referenceId\").asText() ><> "+node2.get("referenceId").asText());
+				if( node2.get("referenceId").asText().equals("refId")) {
+					
+					System.out.println("body.get(\"FirstName\") >  "+body.get("FirstName"));
+					firstname = body.get("FirstName").asText();
+					lastname = body.get("LastName").asText();
+					email = body.get("Email").asText();
+				} else if( node2.get("referenceId").asText().equals("refCompany")) { 
+					ArrayNode arrayNode2 = (ArrayNode) body.get("records");
+					Iterator<JsonNode> itr2 = arrayNode2.elements();
+					JsonNode cnode = itr2.next();
+					System.out.println("cnode.get(\"Name\").asText() >  "+cnode.get("Name").asText());
+					companyname = cnode.get("Name").asText();
+					
+				}
+			}
+			
+				
+			System.out.println("companyname ><> "+companyname);
+			
+			//String lead = "oid=00D90000000g5DD" // my org
+			String lead = "oid=00D09000009DF9a" // haddington
+							+ "&retURL=http%3A%2F%2Fhappychef-io.herokuapp.com%2Fhome"
+							+ "&first_name="+encodeValue(firstname)
+							+ "&last_name="+encodeValue(lastname)
+							+ "&00N0900000JV7qJ="+encodeValue(fDto.count)
+							//+ "&Fields_Created__c="+encodeValue(fDto.count)
+							+ "&company="+encodeValue(companyname)
+							+ "&lead_source="+encodeValue("Web App")
+							+ "&email="+encodeValue(email)
+							+ "&description="+encodeValue("Fields Created : ")+ fDto.count
+							+ "&submit=Submit";
+	        
+			System.out.println("lead ><> "+lead);
+	        return lead;
 	       
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
