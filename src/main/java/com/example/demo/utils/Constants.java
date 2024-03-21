@@ -4,9 +4,9 @@ public class Constants {
 	public static final String GET_USER_BY_ID = "/getUser/{userId}";
 	public static final String GET_ALL_USERS = "/getAllUsers";
 	public static final String SAVE_USER = "/saveUser";
-	public static  String SALESFORCE_CONSUMER_KEY = "3MVG9Y6d_Btp4xp7xxXFOrwzsIK5ZcRR4GPpYLoYFeyYOsfV6wLEcre7lJXmXmOfze__RT2C6xoa.7c2zjg0L";
-	public static  String SALESFORCE_CONSUMER_SECRET = "146D10237AD275AE1E3BF41E2DA2A286DAC92DF4B8CBF617DC450383BBDB30D7";
-	public static  String SALESFORCE_REDIRECT_URI = "https://localhost:8080/oauth2/callback";
+	public static  String SALESFORCE_CONSUMER_KEY = "3MVG9Y6d_Btp4xp7xxXFOrwzsIPafDAJk__76aU..OEQ7a0zca7xTs7tfJzyqVjfA37B2wjcqNFmwJFwCLOzi";
+	public static  String SALESFORCE_CONSUMER_SECRET = "8138589611156163299";
+	public static  String SALESFORCE_REDIRECT_URI = "https://testfieldcreator-540cd36c3db3.herokuapp.com/oauth2/callback";
 	public static  String SALESFORCE_PROD_URI = "https://login.salesforce.com";
 	public static  String SALESFORCE_SNDBX_URI = "https://test.salesforce.com";
 	//static final String SALESFORCE_USERNAME = "p";
